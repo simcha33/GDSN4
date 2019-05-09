@@ -4,11 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 
-public enum Colors {colorless = 0, red = 1, blue = 2};
+public enum Colors { colorless = 0, red = 1, blue = 2 };
 public class EnemyClasses : MonoBehaviour
 {
     public List<Enemy> enemyList = new List<Enemy>();
-    public GameObject[] enemies;    
+    public List<Material> materialList;
 }
 
 [System.Serializable]
@@ -20,7 +20,15 @@ public class Enemy
     public float stayingTime;
     public float damage;
     public float health;
-    public EnemySpawn enemySpawn;
+
+    public int materialColor(Colors color)
+    {
+        if (color == Colors.colorless) return 0;
+        if (color == Colors.red) return 1;
+        if (color == Colors.blue) return 2;
+        else return 0;
+
+    }
 
 }
 
