@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerShip : MonoBehaviour {
 
@@ -11,7 +12,8 @@ public class PlayerShip : MonoBehaviour {
 
 	public int projectileCooldown; 
 	public float hSpeed; 
-	public float vSpeed; 
+	public float vSpeed;
+    public float dragModifier;
 
 	public float playerHealth;  
  
@@ -35,7 +37,15 @@ public class PlayerShip : MonoBehaviour {
 	public Transform gunCombineSingle;
 	public Transform gunCombineDouble1;
 	public Transform gunCombineDouble2;
-	
+
+    private GameObject otherPlayer;
+    private PlayerShip otherPlayerScript;
+
+    public float xAxis;
+    public float yAxis;
+
+    public float xDrag;
+    public float yDrag;
 
 	public enum ShootingStyle
     {
@@ -50,19 +60,24 @@ public class PlayerShip : MonoBehaviour {
 		
 		lineScript = GameObject.Find("LineRenderer").GetComponent<LineRenderScript>();
 
+        
+
 		if(playerNum == 1){
 			barrel=transform.Find("barrelp1").gameObject; 
 			gunCombineSingle = GameObject.Find("barrelCombinep1").GetComponent<Transform>();
 			gunCombineDouble1 = barrel.transform;
 			gunCombineDouble2 = GameObject.Find("barrelp2").GetComponent<Transform>();
+            otherPlayer = GameObject.Find("p2");
 		}
 		if(playerNum == 2){
 			barrel=transform.Find("barrelp2").gameObject; 
 			gunCombineSingle = GameObject.Find("barrelCombinep2").GetComponent<Transform>();
 			gunCombineDouble1 = barrel.transform;
-			gunCombineDouble2 =  GameObject.Find("barrelp1").GetComponent<Transform>(); 
+			gunCombineDouble2 =  GameObject.Find("barrelp1").GetComponent<Transform>();
+            otherPlayer = GameObject.Find("p1");
 		}
-	}
+        otherPlayerScript = otherPlayer.GetComponent<PlayerShip>();
+    }
 
 	void Update (){
 		//movement
@@ -85,10 +100,23 @@ public class PlayerShip : MonoBehaviour {
 		//}
 		triggerDelay++; 
 
-		healthText.text = "Health:" + playerHealth; 
+		healthText.text = "Health:" + playerHealth;
+        xAxis = Input.GetAxis("Horizontal");
+        yAxis = Input.GetAxis("Vertical");
 
+        //style of shooting
 		ShootingSyles(); 
-	}
+
+        //magnet system
+        if(lineScript.Totaldist <= 1.0f && lineScript.combined == true)
+        {
+            Magnetize();
+            NoDrag();
+        }
+        else GetComponent<Rigidbody>().drag = 10;
+        Debug.Log(xAxis);
+        
+    }
 
 	public void TakeDamage(){
 		playerHealth-=1; 
@@ -144,4 +172,30 @@ public class PlayerShip : MonoBehaviour {
                 break;
         }
 	}
+
+    void Magnetize()
+    {
+        
+        GetComponent<Rigidbody>().drag = lineScript.Totaldist * dragModifier;
+    }
+
+    void NoDrag()
+    {
+        
+        if (xAxis > 0 && otherPlayerScript.xAxis > 0 || xAxis < 0 && otherPlayerScript.xAxis < 0)
+        {
+            if(yAxis > 0 && otherPlayerScript.yAxis > 0 || yAxis < 0 && otherPlayerScript.yAxis < 0)
+                GetComponent<Rigidbody>().drag = 10;
+        }
+        
+
+        if (xAxis > 0 && otherPlayerScript.xAxis > 0 || xAxis < 0 && otherPlayerScript.xAxis < 0)
+        {
+           // if(yAxis > 0 && otherPlayerScript > 0.1f)
+        }
+
+        // if P1 gaat Links && P2 gaat Links doe dit
+        // else P1 gaat links && P2 gaat rechts
+
+    }
 }
