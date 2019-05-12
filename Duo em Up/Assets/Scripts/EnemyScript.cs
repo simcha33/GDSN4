@@ -34,4 +34,9 @@ public class EnemyScript : MonoBehaviour
         rend.material = _material;
         Debug.Log(_material.name);
     }
+
+    void EnemyMovement()
+    {
+
+    }
 }
