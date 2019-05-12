@@ -37,7 +37,6 @@ public class NormaleEnemy : MonoBehaviour {
 		rb.velocity=new Vector3(xSpeed, ySpeed *-1, 0); 
 		//LineRenderScript lineRenderScript = gameObject.GetComponent<LineRenderScript>(); 
 		//Debug.Log(damage);
-		Debug.Log(hitPoints);  
 	}
 
 	void OnCollisionEnter(Collision other) {

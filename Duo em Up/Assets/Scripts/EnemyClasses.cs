@@ -16,6 +16,8 @@ public class Enemy
 {
     public string enemyName;
     public Colors color;
+    //IMPORTANT since the movement speed for now is used as the time it takes for the movement animation to complete...
+    //...the lower the movement speed, the faster the enemy will move
     public float movementSpeed;
     public float stayingTime;
     public float damage;

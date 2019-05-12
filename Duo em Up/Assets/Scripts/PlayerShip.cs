@@ -114,7 +114,6 @@ public class PlayerShip : MonoBehaviour {
             NoDrag();
         }
         else GetComponent<Rigidbody>().drag = 10;
-        Debug.Log(xAxis);
         
     }
 
