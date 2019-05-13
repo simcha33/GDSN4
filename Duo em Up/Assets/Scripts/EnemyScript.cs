@@ -44,7 +44,7 @@ public class EnemyScript : MonoBehaviour
         _materialColor = enemyClasses.enemyList[index].materialColor(_color);
         _material = enemyClasses.materialList[_materialColor];
         rend.material = _material;
-       
+
 
 
 

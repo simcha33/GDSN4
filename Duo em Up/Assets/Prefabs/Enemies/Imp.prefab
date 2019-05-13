@@ -108,10 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 0
   index: 0
-  wayPoints:
-  - {fileID: 9214734788692791339, guid: 12c493c2333a0904db3d5a52fde00f27, type: 3}
-  - {fileID: 4012809104653023361, guid: 43ac864883d13db45a536d897f1eae06, type: 3}
-  - {fileID: 2792063730088188720, guid: 07ede40a1c9f81d499dd40fd5faa9bea, type: 3}
+  wayPoints: []
   wayPointVector3: []
 --- !u!114 &2572369319219337922
 MonoBehaviour:
@@ -138,8 +135,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletTime: 1
-  fireRate: 0.05
+  fireRate: 0.1
   bulletAmount: 7
   bulletPrefab: {fileID: 5753072612872881955, guid: 25dc6f7fce02f74489d3e1a2f330c98a,
     type: 3}
+  bulletFollow: 1
   target: 0

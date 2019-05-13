@@ -17,7 +17,6 @@ public class BasicBullet : MonoBehaviour
         if (player != null)
             transform.LookAt(player.transform);
         
-        
         destination = new Vector3(0, -1 * travelSpeed, 0);
 
     }
@@ -25,6 +24,8 @@ public class BasicBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _rb.velocity = transform.forward * travelSpeed;
-    }
+        if (player != null)
+            _rb.velocity = transform.forward * travelSpeed;
+        else _rb.velocity = -transform.up * travelSpeed;
+    }   
 }
