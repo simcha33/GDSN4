@@ -9,7 +9,7 @@ public class BasicBullet : MonoBehaviour
     Vector3 destination;
 
     public float travelSpeed;
-
+  
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -27,5 +27,15 @@ public class BasicBullet : MonoBehaviour
         if (player != null)
             _rb.velocity = transform.forward * travelSpeed;
         else _rb.velocity = -transform.up * travelSpeed;
-    }   
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "BulletKill")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
 }

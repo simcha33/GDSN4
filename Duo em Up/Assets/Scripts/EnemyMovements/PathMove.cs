@@ -12,6 +12,7 @@ public class PathMove : MonoBehaviour
     {
         enemyScript = GetComponent<EnemyScript>();
         StartCoroutine(EnemyMove());
+        StartCoroutine(Destroy());
     }
 
     IEnumerator EnemyMove()
@@ -19,4 +20,9 @@ public class PathMove : MonoBehaviour
         yield return transform.DOPath(enemyScript.wayPointVector3.ToArray(), enemyScript._movementSpeed, PathType.CubicBezier, PathMode.Ignore);
     }
 
+    IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(enemyScript._movementSpeed);
+        Destroy(this.gameObject);
+    }
 }

@@ -11,6 +11,8 @@ TagManager:
   - EnemyBlue
   - Bounds
   - EnemyNeutral
+  - Reader
+  - BulletKill
   layers:
   - Default
   - TransparentFX

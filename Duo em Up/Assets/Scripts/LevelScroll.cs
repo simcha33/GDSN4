@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LevelScroll : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Rigidbody _rb;
+    public float scrollSpeed; 
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        _rb = GetComponent<Rigidbody>();
+    }
+    private void Update()
+    {
+        _rb.velocity = -transform.up * scrollSpeed;
     }
 }
