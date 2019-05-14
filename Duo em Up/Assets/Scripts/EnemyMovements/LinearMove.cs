@@ -7,16 +7,20 @@ using DG.Tweening;
 public class LinearMove : MonoBehaviour
 {
     EnemyScript enemyScript;
+    Rigidbody _rb;
+    public Vector3 destination;
+    public SpawnPoint spawnScript;
 
     public void Awake()
     {
+        
         enemyScript = GetComponent<EnemyScript>();
-        StartCoroutine(EnemyMove());
+        _rb = GetComponent<Rigidbody>();
     }
 
-    IEnumerator EnemyMove()
+    void MoveToward()
     {
-        yield return transform.DOPath(enemyScript.wayPointVector3.ToArray(), enemyScript._movementSpeed, PathType.Linear, PathMode.Ignore);
+       // _rb.velocity = destination;
     }
 
 }

@@ -48,7 +48,7 @@ public class EnemyScript : MonoBehaviour
 
 
 
-
+        //MAYBE THE PROBLEM FOR LINEAR MOVEMENT LIES HERE
         foreach (GameObject waypoint in wayPoints)
         {
             Vector3 newWayPoint = new Vector3(waypoint.transform.position.x, waypoint.transform.position.y, 0);

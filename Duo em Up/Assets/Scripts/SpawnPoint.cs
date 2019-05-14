@@ -10,29 +10,41 @@ public class SpawnPoint : MonoBehaviour
     Vector3 pos;
 
     [Header("List of Movement Waypoints")]
-    public List<GameObject> wayPoints;
+    public List<GameObject> wayPoints = new List<GameObject>();
     LinearMove linearMove = null;
 
     private void Awake()
     {
-       
-
-        linearMove = enemies[0].GetComponent<LinearMove>();
-        
-        if(linearMove != null)
+        foreach (GameObject enemy in enemies)
         {
-            //ok this is super weird, hear  me out:
-            //I add waypoints to my enemies' lists, but they remember what was added during play sessions..... this shouldn't be happening...
-            StartCoroutine(AddToList());
+            enemy.GetComponent<EnemyScript>().wayPoints = null;
         }
-        else if (linearMove == null)
+
+        if (enemies[0].GetComponent<LinearMove>() == true)
         {
             foreach (GameObject enemy in enemies)
             {
+                enemy.GetComponent<EnemyScript>().wayPoints = null;
+                enemy.GetComponent<EnemyScript>().wayPoints = wayPoints;
+            }
+            //insert code that sets the destination for the enemies using Linear Move here
+            //except this one doesnt work for some ungodly reason!!!!!!!!!!!!!!!!!!!
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].GetComponent<LinearMove>().destination = wayPoints[i].transform.position;
+            }
+            
+        }
+        else
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                enemy.GetComponent<EnemyScript>().wayPoints = null;
                 enemy.GetComponent<EnemyScript>().wayPoints = wayPoints;
             }
         }
-            
+     
+
     }
 
     void Start()
@@ -50,13 +62,14 @@ public class SpawnPoint : MonoBehaviour
         }
     }
 
-    IEnumerator AddToList()
+    IEnumerator SetDestination()
     {
+        yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < enemies.Count; i++)
         {
-            
-            enemies[i].GetComponent<EnemyScript>().wayPoints.Add(wayPoints[1]);
+            enemies[i].GetComponent<LinearMove>().destination = wayPoints[i].transform.position;
         }
-        yield return null;
     }
+
+ 
 }
