@@ -11,13 +11,28 @@ public class SpawnPoint : MonoBehaviour
 
     [Header("List of Movement Waypoints")]
     public List<GameObject> wayPoints;
+    LinearMove linearMove = null;
 
     private void Awake()
     {
-        foreach(GameObject enemy in enemies)
+       
+
+        linearMove = enemies[0].GetComponent<LinearMove>();
+        
+        if(linearMove != null)
         {
-            enemy.GetComponent<EnemyScript>().wayPoints = wayPoints;
+            //ok this is super weird, hear  me out:
+            //I add waypoints to my enemies' lists, but they remember what was added during play sessions..... this shouldn't be happening...
+            StartCoroutine(AddToList());
         }
+        else if (linearMove == null)
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                enemy.GetComponent<EnemyScript>().wayPoints = wayPoints;
+            }
+        }
+            
     }
 
     void Start()
@@ -33,5 +48,15 @@ public class SpawnPoint : MonoBehaviour
             GameObject enemy = Instantiate(enemies[i], pos, Quaternion.identity);
             yield return new WaitForSeconds(spawnRate);
         }
+    }
+
+    IEnumerator AddToList()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            
+            enemies[i].GetComponent<EnemyScript>().wayPoints.Add(wayPoints[1]);
+        }
+        yield return null;
     }
 }

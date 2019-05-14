@@ -25,9 +25,15 @@ public class playerProjectiles : MonoBehaviour {
 
 	//het is denk ik beter om de collision check in de speler te doen voor wanneer er meer soorten kogels komen. 
 	void OnTriggerEnter(Collider other) {
-		if(other.gameObject.tag=="EnemyNeutral"){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
-			other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
-			Destroy(gameObject);}
+        if (other.gameObject.tag == "BulletKill")
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (other.gameObject.tag=="EnemyNeutral"){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
+			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage();
+            other.gameObject.GetComponent<EnemyScript>()._health -= 1;
+            Destroy(gameObject);}
 
 		else if(other.gameObject.tag=="EnemyRed" && Shooter == 1){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
@@ -60,11 +66,12 @@ public class playerProjectiles : MonoBehaviour {
 			}
 	}
 
-	//void OnCollisionEnter(Collision other){
-	//	if(other.gameObject.tag == "Bounds"){
-//			Destroy(gameObject); 
-	///	}
-	//}
+
+    //void OnCollisionEnter(Collision other){
+    //	if(other.gameObject.tag == "Bounds"){
+    //			Destroy(gameObject); 
+    ///	}
+    //}
 }
 
 

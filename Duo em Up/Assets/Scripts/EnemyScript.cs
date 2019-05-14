@@ -13,7 +13,7 @@ public class EnemyScript : MonoBehaviour
     public float _movementSpeed;
     float _stayingTime;
     float _damage;
-    float _health;
+    public float _health;
     int _materialColor;
     Material _material;
     Renderer rend;
@@ -61,5 +61,13 @@ public class EnemyScript : MonoBehaviour
     {
         yield return transform.DOPath(wayPointVector3.ToArray(), _movementSpeed, PathType.CubicBezier, PathMode.Ignore);
     }
-    
+
+    private void Update()
+    {
+        if(_health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 }

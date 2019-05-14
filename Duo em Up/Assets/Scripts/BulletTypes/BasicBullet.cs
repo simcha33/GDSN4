@@ -35,6 +35,13 @@ public class BasicBullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("playergothit");
+            other.gameObject.GetComponent<PlayerShip>().TakeDamage();
+            Destroy(gameObject);
+        }
     }
 
 
