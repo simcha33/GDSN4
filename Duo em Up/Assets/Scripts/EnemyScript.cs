@@ -15,6 +15,7 @@ public class EnemyScript : MonoBehaviour
     float _damage;
     public float _health;
     int _materialColor;
+    string _tagName;
     Material _material;
     Renderer rend;
     Rigidbody _rb;
@@ -26,6 +27,7 @@ public class EnemyScript : MonoBehaviour
     //IMPORTANT: add waypoints in multiples of 3.
     public List<GameObject> wayPoints;
     public List<Vector3> wayPointVector3;
+    public GameObject linearWayPoint;
 
 
     private void Awake()
@@ -35,7 +37,7 @@ public class EnemyScript : MonoBehaviour
         rend = GetComponent<Renderer>();
         enemyClasses = GameObject.Find("Manager").GetComponent<EnemyClasses>();
         _enemyName = enemyClasses.enemyList[index].enemyName;
-        _color = enemyClasses.enemyList[index].color; ;
+        _color = enemyClasses.enemyList[index].color;
         _movementSpeed = enemyClasses.enemyList[index].movementSpeed;
         _stayingTime = enemyClasses.enemyList[index].stayingTime;
         _damage = enemyClasses.enemyList[index].damage;
@@ -44,6 +46,8 @@ public class EnemyScript : MonoBehaviour
         _materialColor = enemyClasses.enemyList[index].materialColor(_color);
         _material = enemyClasses.materialList[_materialColor];
         rend.material = _material;
+        _tagName = enemyClasses.enemyList[index].tagName(_color);
+        transform.gameObject.tag = _tagName;
 
 
 
@@ -54,12 +58,6 @@ public class EnemyScript : MonoBehaviour
             Vector3 newWayPoint = new Vector3(waypoint.transform.position.x, waypoint.transform.position.y, 0);
             wayPointVector3.Add(newWayPoint);
         }
-       // StartCoroutine(EnemyPath());
-    }
-    
-    IEnumerator EnemyPath()
-    {
-        yield return transform.DOPath(wayPointVector3.ToArray(), _movementSpeed, PathType.CubicBezier, PathMode.Ignore);
     }
 
     private void Update()

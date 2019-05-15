@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.Events;
 
 public enum Colors { colorless = 0, red = 1, blue = 2 };
+
 public class EnemyClasses : MonoBehaviour
 {
     public List<Enemy> enemyList = new List<Enemy>();
@@ -16,6 +17,7 @@ public class Enemy
 {
     public string enemyName;
     public Colors color;
+
     //IMPORTANT since the movement speed for now is used as the time it takes for the movement animation to complete...
     //...the lower the movement speed, the faster the enemy will move
     public float movementSpeed;
@@ -30,6 +32,14 @@ public class Enemy
         if (color == Colors.blue) return 2;
         else return 0;
 
+    }
+
+    public string tagName(Colors color)
+    {
+        if (color == Colors.colorless) return "EnemyNeutral";
+        if (color == Colors.red) return "EnemyRed";
+        if (color == Colors.blue) return "EnemyBlue";
+        else return "EnemyNeutral";
     }
 
 }

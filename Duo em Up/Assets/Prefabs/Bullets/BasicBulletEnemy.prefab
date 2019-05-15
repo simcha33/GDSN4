@@ -122,5 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  travelSpeed: 3
-  lifeTime: 20
+  travelSpeed: 5

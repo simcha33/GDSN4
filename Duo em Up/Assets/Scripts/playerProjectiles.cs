@@ -36,7 +36,8 @@ public class playerProjectiles : MonoBehaviour {
             Destroy(gameObject);}
 
 		else if(other.gameObject.tag=="EnemyRed" && Shooter == 1){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
-			other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
+			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage();
+            other.gameObject.GetComponent<EnemyScript>()._health -= 1;
 			Debug.Log("redgoodhit"); 
 			Destroy(gameObject);
 		}
@@ -51,7 +52,8 @@ public class playerProjectiles : MonoBehaviour {
 			}
 
 		else if(other.gameObject.tag=="EnemyBlue" && Shooter == 2){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
-			other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
+			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
+            other.gameObject.GetComponent<EnemyScript>()._health -= 1;
 			Destroy(gameObject);
 		}
 		
