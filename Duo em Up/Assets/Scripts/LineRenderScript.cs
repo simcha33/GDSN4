@@ -64,7 +64,7 @@ public class LineRenderScript : MonoBehaviour
         if (Totaldist < 8 && Totaldist > 7) damage = 1;
         else if (Totaldist < 7 && Totaldist > 5) damage = 2;
         else if (Totaldist < 5 && Totaldist > 3) damage = 3;
-        else if (Totaldist < 3 && Totaldist > 0) damage = 4;
+        else if (Totaldist < 3 && Totaldist > 0 && combined == false) damage = 4;
         else if (Totaldist > 8) damage = 1;
 		
         if (Totaldist <= 1.0f && !Input.GetKey("p")) Combine();
@@ -84,20 +84,13 @@ public class LineRenderScript : MonoBehaviour
     {
         if (combined == false)
         {
-			
-			//  player2.transform.position = new Vector3(player1.transform.position.x + 0.5f, player1.transform.position.y, 0);
-            player1Script.combinedSingle = false;
-            player1Script.shootingStyle = PlayerShip.ShootingStyle.CombinedDouble;
+            player1Script.combinedSingle = true;
+            player1Script.shootingStyle = PlayerShip.ShootingStyle.CombinedSingle;
             player2Script.combinedSingle = true;
             player2Script.shootingStyle = PlayerShip.ShootingStyle.CombinedSingle;
-			
+            damage = 5;
 			Magnetize();			
         }
-        //
-		//if( Totaldist >= 0.9f && combined == true){
-		//player1.GetComponent<Rigidbody>().AddForce(midLine * magnetForce,0);
-		//player2.GetComponent<Rigidbody>().AddForce(midLine * magnetForce,0);
-		//}
         lRender.startWidth = 0;
         lRender.endWidth = 0;
     }

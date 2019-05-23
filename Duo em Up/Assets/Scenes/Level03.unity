@@ -246,7 +246,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletBig
       value: 
-      objectReference: {fileID: 5146331040019903969, guid: 490d6c00d205eff4ca922a290058354d,
+      objectReference: {fileID: 8732495785465387677, guid: 29d6fb8b24e371241a2db5bc549b115a,
         type: 3}
     - target: {fileID: 114469611651774224, guid: 3d63e356c8f9cde4eb01d984c5a4856c,
         type: 3}
@@ -10799,19 +10799,19 @@ MonoBehaviour:
     movementSpeed: 3
     stayingTime: 5
     damage: 5
-    health: 3
+    health: 10
   - enemyName: GoblinRed
     color: 1
     movementSpeed: 2
     stayingTime: 2
     damage: 2
-    health: 6
+    health: 30
   - enemyName: GoblinBlue
     color: 2
     movementSpeed: 2
     stayingTime: 2
     damage: 2
-    health: 6
+    health: 30
   - enemyName: BalrogRed
     color: 1
     movementSpeed: 2
@@ -10835,19 +10835,19 @@ MonoBehaviour:
     movementSpeed: 2
     stayingTime: 2
     damage: 2
-    health: 6
+    health: 40
   - enemyName: Chalemeon
     color: 1
     movementSpeed: 2
     stayingTime: 2
     damage: 2
-    health: 6
+    health: 40
   - enemyName: GreatChalemeon
     color: 2
     movementSpeed: 2
     stayingTime: 2
     damage: 2
-    health: 6
+    health: 40
   materialList:
   - {fileID: 2100000, guid: 847d6d1d01730f14d9d86818ecf17bab, type: 2}
   - {fileID: 2100000, guid: 73bbd216c8b7ad14aab95f21de39af6c, type: 2}
@@ -11771,7 +11771,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletBig
       value: 
-      objectReference: {fileID: 3778760942862063390, guid: 357b873c2da4eac45961d9445966e754,
+      objectReference: {fileID: 5886158256987564908, guid: 6bbeb6560720a9b43837bc431e965a0e,
         type: 3}
     - target: {fileID: 114469611651774224, guid: 3d63e356c8f9cde4eb01d984c5a4856c,
         type: 3}

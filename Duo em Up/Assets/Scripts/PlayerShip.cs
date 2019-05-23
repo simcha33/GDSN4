@@ -145,28 +145,16 @@ public class PlayerShip : MonoBehaviour {
 			}
 			else if(Input.GetButton("Fire1") && triggerDelay> projectileCooldown && playerNum == 2){
 				Shoot(); 
-		}
+		    }
                 break;
-            case ShootingStyle.CombinedDouble:
-                if (Input.GetKey(KeyCode.L)&& triggerDelay> projectileCooldown && playerNum == 1 || Input.GetButton("Fire1") && triggerDelay> projectileCooldown && playerNum == 2)
-                {
-					triggerDelay=0; 
-                    Rigidbody bulletInstance1;
-                    bulletInstance1 = Instantiate(bulletSmall, gunCombineDouble1.position, gunCombineDouble1.rotation).GetComponent<Rigidbody>();
-                    //bulletInstance1.AddForce(gunCombineDouble1.up * 300);
-                    Rigidbody bulletInstance2;
-                    bulletInstance2 = Instantiate(bulletSmall, gunCombineDouble2.position, gunCombineDouble2.rotation).GetComponent<Rigidbody>();
-                   //bulletInstance2.AddForce(gunCombineDouble2.up * 300);
-                    Debug.Log("DOUBLE BULLET");
-                }
-                break;
+            
             case ShootingStyle.CombinedSingle:
                 if (Input.GetKey(KeyCode.L)&& triggerDelay> projectileCooldown && playerNum == 1 || Input.GetButton("Fire1") && triggerDelay> projectileCooldown && playerNum == 2)
                 {
 					triggerDelay=0; 
                     Rigidbody bulletInstance;
-                    bulletInstance = Instantiate(bulletBig, gunCombineSingle.position, gunCombineSingle.rotation).GetComponent<Rigidbody>();
-                    //bulletInstance.AddForce(gunCombineSingle.up * 300);
+                    bulletInstance = Instantiate(bulletBig, barrel.transform.position, barrel.transform.rotation).GetComponent<Rigidbody>();
+                    
                 }
                 break;
         }
@@ -180,18 +168,14 @@ public class PlayerShip : MonoBehaviour {
 
     void NoDrag()
     {
-        
+     /*   
         if (xAxis > 0 && otherPlayerScript.xAxis > 0 || xAxis < 0 && otherPlayerScript.xAxis < 0)
         {
             if(yAxis > 0 && otherPlayerScript.yAxis > 0 || yAxis < 0 && otherPlayerScript.yAxis < 0)
                 GetComponent<Rigidbody>().drag = 10;
         }
-        
+        */
 
-        if (xAxis > 0 && otherPlayerScript.xAxis > 0 || xAxis < 0 && otherPlayerScript.xAxis < 0)
-        {
-           // if(yAxis > 0 && otherPlayerScript > 0.1f)
-        }
 
         // if P1 gaat Links && P2 gaat Links doe dit
         // else P1 gaat links && P2 gaat rechts
