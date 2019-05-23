@@ -20,8 +20,11 @@ public class EnemyScript : MonoBehaviour
     Renderer rend;
     Rigidbody _rb;
 
-    
-    public int index;     
+    public GameObject shield;
+    public ParticleSystem hit;
+
+
+    public int index;
 
     //if you want the enemies to move over a path, add the waypoints on the path to this list
     //IMPORTANT: add waypoints in multiples of 3.
@@ -49,9 +52,6 @@ public class EnemyScript : MonoBehaviour
         _tagName = enemyClasses.enemyList[index].tagName(_color);
         transform.gameObject.tag = _tagName;
 
-
-
-
         //MAYBE THE PROBLEM FOR LINEAR MOVEMENT LIES HERE
         foreach (GameObject waypoint in wayPoints)
         {
@@ -62,10 +62,21 @@ public class EnemyScript : MonoBehaviour
 
     private void Update()
     {
-        if(_health <= 0)
+        if (_health <= 0)
         {
             Destroy(this.gameObject);
         }
     }
 
+    public void ShieldOn()
+    {
+        StartCoroutine(ShieldActivate());
+    }
+
+    IEnumerator ShieldActivate()
+    {
+        shield.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        shield.SetActive(false);
+    }
 }

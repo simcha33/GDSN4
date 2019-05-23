@@ -6,14 +6,20 @@ public class playerProjectiles : MonoBehaviour {
 
 	Rigidbody rb; 
 	int direction = 1; 
-	public float travelSpeed; 
+	public float travelSpeed;
+
+    public GameObject hit;
+
+    public LineRenderScript lRenderScript;
+
 
 //public int shooter is an int that determines who shot the bullet
 //0 is nothing, 1 is player 1, 2 is player 2, 3 is enemy 1, 4 is enemy 2
 	public int Shooter;
 
 	void Awake(){
-		rb=GetComponent<Rigidbody>(); 
+		rb=GetComponent<Rigidbody>();
+        lRenderScript = GameObject.Find("LineRenderer").GetComponent<LineRenderScript>();
 	}
 	public void changeDirection() {
 		direction*=-1; 
@@ -32,29 +38,44 @@ public class playerProjectiles : MonoBehaviour {
 
         if (other.gameObject.tag=="EnemyNeutral"){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage();
-            other.gameObject.GetComponent<EnemyScript>()._health -= 1;
+            other.gameObject.GetComponent<EnemyScript>()._health -= lRenderScript.damage;
+            GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);
+            Destroy(hitEffect, 1f);
             Destroy(gameObject);}
 
 		else if(other.gameObject.tag=="EnemyRed" && Shooter == 1){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage();
-            other.gameObject.GetComponent<EnemyScript>()._health -= 1;
-			Debug.Log("redgoodhit"); 
+            other.gameObject.GetComponent<EnemyScript>()._health -= lRenderScript.damage;
+            GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);
+            Destroy(hitEffect, 1f);
+            Debug.Log("redgoodhit"); 
+
 			Destroy(gameObject);
 		}
 		else if(other.gameObject.tag=="EnemyRed" && Shooter == 2){
 				//minscore 
-				Debug.Log("Wrong color"); 
-			}
+				Debug.Log("Wrong color");
+            other.gameObject.GetComponent<EnemyScript>().ShieldOn();
+            Destroy(gameObject);
+        }
 
 		if(other.gameObject.tag=="EnemyBlue" && Shooter == 1){
 				//minscore 
-				Debug.Log("Wrong color"); 
-			}
+				Debug.Log("Wrong color");
+            other.gameObject.GetComponent<EnemyScript>().ShieldOn();
+            if(other.gameObject.GetComponent<ShootingMethod>().style == ShootingMethod.ShootStyle.Balrog)
+            {
+                other.gameObject.GetComponent<ShootingMethod>().BerserkCounter();
+            }
+            Destroy(gameObject);
+        }
 
 		else if(other.gameObject.tag=="EnemyBlue" && Shooter == 2){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
-            other.gameObject.GetComponent<EnemyScript>()._health -= 1;
-			Destroy(gameObject);
+            other.gameObject.GetComponent<EnemyScript>()._health -= lRenderScript.damage;
+            GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);
+            Destroy(hitEffect, 1f);
+            Destroy(gameObject);
 		}
 		
 		if(other.gameObject.tag=="Player"){  

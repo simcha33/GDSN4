@@ -14,20 +14,12 @@ public class BasicBullet : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
 
-        if (player != null)
-            transform.LookAt(player.transform);
+      
         
         destination = new Vector3(0, -1 * travelSpeed, 0);
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (player != null)
-            _rb.velocity = transform.forward * travelSpeed;
-        else _rb.velocity = -transform.up * travelSpeed;
-    }
 
     private void OnTriggerEnter(Collider other)
     {

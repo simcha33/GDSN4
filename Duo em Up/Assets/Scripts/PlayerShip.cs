@@ -129,7 +129,7 @@ public class PlayerShip : MonoBehaviour {
 		triggerDelay=0; 
 		Instantiate(projectile, barrel.transform.position, Quaternion.identity); 
 		playerProjectiles projectilescript = projectile.GetComponent<playerProjectiles>();
-		projectilescript.Shooter = playerNum;
+		//projectilescript.Shooter = playerNum;
 		
 		//gameObject.GetComponent<playerProjectiles>().
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7666974904034232827}
   - component: {fileID: 1433088130973859961}
   - component: {fileID: 2572369319219337922}
-  - component: {fileID: 3342542640440187286}
+  - component: {fileID: 388861228769331593}
   - component: {fileID: 8396221126901840249}
   m_Layer: 9
   m_Name: Imp
@@ -109,9 +109,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 0
   _health: 0
+  shield: {fileID: 0}
+  hit: {fileID: 0}
   index: 0
   wayPoints: []
   wayPointVector3: []
+  linearWayPoint: {fileID: 0}
 --- !u!114 &2572369319219337922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17570bc75058d5d40b58e8681182bcce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3342542640440187286
+--- !u!114 &388861228769331593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,15 +136,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 705477983522706176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 280ae905486dce34ca4a261463a9edd4, type: 3}
+  m_Script: {fileID: 11500000, guid: dd9731e77d173ba44926256ff094b049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTime: 1
   fireRate: 0.1
-  bulletAmount: 7
+  fireDelay: 1
   bulletPrefab: {fileID: 5753072612872881955, guid: 25dc6f7fce02f74489d3e1a2f330c98a,
     type: 3}
-  bulletFollow: 1
+  bulletAmount: 6
+  style: 0
+  waitTime: 0.5
+  spread: 10
+  bulletsInSpread: 6
+  bulletSpeed: 20
+  missilePrefab: {fileID: 0}
   target: 0
 --- !u!54 &8396221126901840249
 Rigidbody:
