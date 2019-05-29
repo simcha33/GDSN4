@@ -47,6 +47,10 @@ public class PlayerShip : MonoBehaviour {
     public float xDrag;
     public float yDrag;
 
+    public GameObject playerRespawn;
+    Vector3 respawnPos;
+    public GameObject lRenderRespawn;
+
 	public enum ShootingStyle
     {
         Regular,
@@ -77,9 +81,11 @@ public class PlayerShip : MonoBehaviour {
             otherPlayer = GameObject.Find("p1");
 		}
         otherPlayerScript = otherPlayer.GetComponent<PlayerShip>();
+        respawnPos = otherPlayer.transform.position;
     }
 
-	void Update (){
+	void Update ()
+    {
 		//movement
 		if(playerNum==1){
 		rb.AddForce(new Vector3(Input.GetAxisRaw("Horizontal")*hSpeed,0));  
@@ -114,7 +120,19 @@ public class PlayerShip : MonoBehaviour {
             NoDrag();
         }
         else GetComponent<Rigidbody>().drag = 10;
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (otherPlayer == null)
+            {
+                GameObject newPlayer = Instantiate(playerRespawn, respawnPos, Quaternion.identity);
+                otherPlayer = newPlayer;
+                otherPlayerScript = otherPlayer.GetComponent<PlayerShip>();
+                GameObject newLRender = Instantiate(lRenderRespawn, new Vector3(0, 0, 0), Quaternion.identity);
+                lineScript = newLRender.GetComponent<LineRenderScript>();
+            }
+        }
+
     }
 
 	public void TakeDamage(){

@@ -7,9 +7,10 @@ public class playerProjectiles : MonoBehaviour {
 	Rigidbody rb; 
 	int direction = 1; 
 	public float travelSpeed;
+    float damage;
 
     public GameObject hit;
-
+    GameObject lRender;
     public LineRenderScript lRenderScript;
 
 
@@ -19,14 +20,26 @@ public class playerProjectiles : MonoBehaviour {
 
 	void Awake(){
 		rb=GetComponent<Rigidbody>();
-        lRenderScript = GameObject.Find("LineRenderer").GetComponent<LineRenderScript>();
+        lRender = GameObject.Find("LineRenderer");
+        if(lRender != null)
+            lRenderScript = lRender.GetComponent<LineRenderScript>();
+
+        if(lRenderScript == null)
+        {
+            damage = 5;
+        }
 	}
 	public void changeDirection() {
 		direction*=-1; 
 	}
 
 	void Update() {
-		rb.velocity = new Vector3 (0, travelSpeed*direction, 0); 
+		rb.velocity = new Vector3 (0, travelSpeed*direction, 0);
+        if (lRenderScript != null)
+        {
+            damage = lRenderScript.damage;
+        }
+        else damage = 5;
 	}
 
 	//het is denk ik beter om de collision check in de speler te doen voor wanneer er meer soorten kogels komen. 
@@ -38,14 +51,14 @@ public class playerProjectiles : MonoBehaviour {
 
         if (other.gameObject.tag=="EnemyNeutral"){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage();
-            other.gameObject.GetComponent<EnemyScript>()._health -= lRenderScript.damage;
+            other.gameObject.GetComponent<EnemyScript>()._health -= damage;
             GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);
             Destroy(hitEffect, 1f);
             Destroy(gameObject);}
 
 		else if(other.gameObject.tag=="EnemyRed" && Shooter == 1){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage();
-            other.gameObject.GetComponent<EnemyScript>()._health -= lRenderScript.damage;
+            other.gameObject.GetComponent<EnemyScript>()._health -= damage;
             GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);
             Destroy(hitEffect, 1f);
             Debug.Log("redgoodhit"); 
@@ -72,7 +85,7 @@ public class playerProjectiles : MonoBehaviour {
 
 		else if(other.gameObject.tag=="EnemyBlue" && Shooter == 2){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
-            other.gameObject.GetComponent<EnemyScript>()._health -= lRenderScript.damage;
+            other.gameObject.GetComponent<EnemyScript>()._health -= damage;
             GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);
             Destroy(hitEffect, 1f);
             Destroy(gameObject);

@@ -11,6 +11,8 @@ public class ShootingMethod : MonoBehaviour
         SpreadFire,
         MissileFire,
         Balrog,
+        Chalemeon,
+        RandomSpread
     }
 
     public float fireRate;
@@ -32,18 +34,24 @@ public class ShootingMethod : MonoBehaviour
     [Header("Missile Fire Variables")]
     public GameObject missilePrefab;
 
-    [Header("Balrog Fire Variables")]
-    int berserkCount;
+    [Header("Balrog Variables")]
     public int maxBerserkCount;
+    int berserkCount;
     public float fireRateBerserk;
     bool berserkMode;
     GameObject berserkFlames = null;
     ParticleSystem flames = null;
     private const float radius = 1f;
-
-
+    
+    /*
+    [Header("Chalemeon Variables")]
+    public Material redMaterial = null;
+    public Material blueMaterial = null;
+    bool colorSwitch = false;
+    */
     BasicBullet bulletScript;
 
+    [Header("Don't touch the following")]
     public int target;
 
     private void Awake()
@@ -77,12 +85,23 @@ public class ShootingMethod : MonoBehaviour
             flames = berserkFlames.GetComponent<ParticleSystem>();
         }
 
+        if(style == ShootStyle.Chalemeon)
+        {
+
+        }
+
+        if(style == ShootStyle.RandomSpread)
+        {
+            InvokeRepeating("RandomSpreadFire", 3.0f, fireDelay);
+            
+        }
+
         berserkMode = false;
     }
 
     private void Update()
     {
-        if(berserkCount >= maxBerserkCount && !berserkMode)
+        if(berserkCount >= maxBerserkCount && !berserkMode && berserkCount != 0)
         {
             CancelInvoke();
             flames.Play();
@@ -94,7 +113,7 @@ public class ShootingMethod : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            circularShot();
+            RandomSpreadFire();
         }
     }
 
@@ -113,6 +132,28 @@ public class ShootingMethod : MonoBehaviour
             bulletScript = bullet.GetComponent<BasicBullet>();
             
             bullet.transform.LookAt(player.transform);
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
+            yield return new WaitForSeconds(fireRate);
+
+        }
+    }
+
+    IEnumerator RandomSpread()
+    {
+        target = Random.Range(1, 3);
+        if (target == 1) player = GameObject.Find("p1");
+        else if (target == 2) player = GameObject.Find("p2");
+        else player = null;
+        for (int i = 0; i < bulletAmount; i++)
+        {
+            pos = this.transform.position;
+            GameObject bullet = Instantiate(bulletPrefab, pos, Quaternion.identity);
+            bulletScript = bullet.GetComponent<BasicBullet>();
+            
+            bullet.transform.LookAt(player.transform);
+            Quaternion currentRot = bullet.transform.rotation;
+            bullet.transform.localRotation = Quaternion.Euler(0, 0, bullet.transform.rotation.z + Random.Range(-30,30)) * currentRot;
+
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
             yield return new WaitForSeconds(fireRate);
 
@@ -237,5 +278,11 @@ public class ShootingMethod : MonoBehaviour
             angle += angleStep;
         }
     }
+
+    void RandomSpreadFire()
+    {
+        StartCoroutine(RandomSpread());
+    }
+
 
 }

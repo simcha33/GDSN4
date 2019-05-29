@@ -11,7 +11,7 @@ public class LineRenderScript : MonoBehaviour
 	public Vector3 midLine;
     private GameObject player1;
     private GameObject player2;
-   [HideInInspector] public PlayerShip player1Script;
+    public PlayerShip player1Script;
     public PlayerShip player2Script;
 	public GameObject magnetCol;
 	private Vector3 magnetVect;
@@ -45,6 +45,10 @@ public class LineRenderScript : MonoBehaviour
     
     private void Update()
     {
+        if(player1 == null || player2 == null)
+        {
+            Destroy(this.gameObject);
+        }
 		currentDamageLevel.text = "Damage Level: " + damage; 
 
 		midLine = new Vector3((p1Transform.position.x+p2Transform.position.x)/2,(p1Transform.position.y+p2Transform.position.y)/2,2 );
