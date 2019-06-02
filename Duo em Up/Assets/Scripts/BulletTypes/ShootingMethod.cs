@@ -137,7 +137,7 @@ public class ShootingMethod : MonoBehaviour
 
         }
     }
-
+    
     IEnumerator RandomSpread()
     {
         target = Random.Range(1, 3);
@@ -175,7 +175,7 @@ public class ShootingMethod : MonoBehaviour
             bullet.transform.LookAt(player.transform);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
-            yield return new WaitForSeconds(fireRate);
+            yield return new WaitForSeconds(fireRate); 
         }
     }
     
