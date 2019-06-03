@@ -16,6 +16,8 @@ public class PlayerShip : MonoBehaviour {
     public float dragModifier;
 
 	public float playerHealth;  
+
+	public float maxPlayerHealth; 
  
 
 	public Text healthText; 
@@ -57,8 +59,12 @@ public class PlayerShip : MonoBehaviour {
         CombinedDouble,
         CombinedSingle
     }
+
+	
     public ShootingStyle shootingStyle;
 	void Awake(){
+
+		//playerHealth = maxPlayerHealth; 
 	
 		rb=GetComponent<Rigidbody>(); 
 		
@@ -180,7 +186,6 @@ public class PlayerShip : MonoBehaviour {
 
     void Magnetize()
     {
-        
         GetComponent<Rigidbody>().drag = lineScript.Totaldist * dragModifier;
     }
 

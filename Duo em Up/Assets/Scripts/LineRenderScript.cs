@@ -29,8 +29,9 @@ public class LineRenderScript : MonoBehaviour
     public float maxDist = 8;
     public float minDist = 1;
 	public float magnetForce;
-
 	public Text currentDamageLevel; 
+
+    public bool powerUpMode = false; 
 
     private void Start()
     {
@@ -65,11 +66,16 @@ public class LineRenderScript : MonoBehaviour
         lRender.startWidth = Mathf.Clamp((((maxWidth - minWidth) / (maxDist - minDist))/Totaldist), minWidth/10, maxWidth/10);
         lRender.endWidth = Mathf.Clamp((((maxWidth - minWidth) / (maxDist - minDist)) / Totaldist), minWidth/10, maxWidth/10);
  
+        if(powerUpMode == false){
         if (Totaldist < 8 && Totaldist > 7) damage = 1;
         else if (Totaldist < 7 && Totaldist > 5) damage = 2;
         else if (Totaldist < 5 && Totaldist > 3) damage = 3;
         else if (Totaldist < 3 && Totaldist > 0 && combined == false) damage = 4;
         else if (Totaldist > 8) damage = 1;
+        }
+        else if (powerUpMode == true){
+            damage = 5; 
+        }
 		
         if (Totaldist <= 1.0f && !Input.GetKey("p")) Combine();
         else
