@@ -30,17 +30,20 @@ public class PlayerShip : MonoBehaviour {
 
 	public GameObject barrel;
 
-	public LineRenderScript lineScript; 
+	public LineRenderScript lineScript;
+    public GameObject lineRender;
 
 	public bool combinedSingle; 
 
 	public GameObject bulletSmall;
 	public GameObject bulletBig;
+    public GameObject bulletLast;
+
 	public Transform gunCombineSingle;
 	public Transform gunCombineDouble1;
 	public Transform gunCombineDouble2;
 
-    private GameObject otherPlayer;
+    public GameObject otherPlayer;
     private PlayerShip otherPlayerScript;
 
     public float xAxis;
@@ -57,7 +60,8 @@ public class PlayerShip : MonoBehaviour {
     {
         Regular,
         CombinedDouble,
-        CombinedSingle
+        CombinedSingle,
+        LastMan
     }
 
 	
@@ -66,9 +70,10 @@ public class PlayerShip : MonoBehaviour {
 
 		//playerHealth = maxPlayerHealth; 
 	
-		rb=GetComponent<Rigidbody>(); 
-		
-		lineScript = GameObject.Find("LineRenderer").GetComponent<LineRenderScript>();
+		rb=GetComponent<Rigidbody>();
+
+        lineRender = GameObject.Find("LineRenderer");
+		lineScript = lineRender.GetComponent<LineRenderScript>();
 
         
 
@@ -127,16 +132,16 @@ public class PlayerShip : MonoBehaviour {
         }
         else GetComponent<Rigidbody>().drag = 10;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             if (otherPlayer == null)
             {
-                GameObject newPlayer = Instantiate(playerRespawn, respawnPos, Quaternion.identity);
-                otherPlayer = newPlayer;
-                otherPlayerScript = otherPlayer.GetComponent<PlayerShip>();
-                GameObject newLRender = Instantiate(lRenderRespawn, new Vector3(0, 0, 0), Quaternion.identity);
-                lineScript = newLRender.GetComponent<LineRenderScript>();
+                Revive();
             }
+        }
+        if (!otherPlayer.activeInHierarchy)
+        {
+            LastManStanding();
         }
 
     }
@@ -146,7 +151,9 @@ public class PlayerShip : MonoBehaviour {
 		//zelfde hier voor de speler als bij enemies eigenlijk
 
 		if(playerHealth<=0){
-            gameObject.SetActive(false);  
+            playerHealth = 5;
+            gameObject.SetActive(false);
+            
 		}
 	}
 	void Shoot(){
@@ -181,12 +188,34 @@ public class PlayerShip : MonoBehaviour {
                     
                 }
                 break;
+
+            case ShootingStyle.LastMan:
+                if (Input.GetKey(KeyCode.L) && triggerDelay > projectileCooldown && playerNum == 1 || Input.GetButton("Fire1") && triggerDelay > projectileCooldown && playerNum == 2)
+                {
+                    triggerDelay = 0;
+                    Rigidbody bulletInstance;
+                    bulletInstance = Instantiate(bulletLast, barrel.transform.position, barrel.transform.rotation).GetComponent<Rigidbody>();
+
+                }
+                break;
         }
 	}
 
     void Magnetize()
     {
         GetComponent<Rigidbody>().drag = lineScript.Totaldist * dragModifier;
+    }
+
+    void Revive()
+    {
+        if (!otherPlayer.activeInHierarchy)
+        {
+            otherPlayerScript.playerHealth = 5;
+            otherPlayer.SetActive(true);
+            
+            lineRender.SetActive(true);
+        }
+        
     }
 
     void NoDrag()
@@ -202,6 +231,16 @@ public class PlayerShip : MonoBehaviour {
 
         // if P1 gaat Links && P2 gaat Links doe dit
         // else P1 gaat links && P2 gaat rechts
+
+    }
+
+    //this should trigger when the other player is dead
+    void LastManStanding()
+    {
+        if(shootingStyle != ShootingStyle.LastMan)
+        {
+            shootingStyle = ShootingStyle.LastMan;
+        }
 
     }
 }

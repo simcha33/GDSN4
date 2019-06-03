@@ -46,9 +46,11 @@ public class LineRenderScript : MonoBehaviour
     
     private void Update()
     {
-        if(player1 == null || player2 == null)
+        
+
+        if(!player1.activeInHierarchy || !player2.activeInHierarchy)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
 		currentDamageLevel.text = "Damage Level: " + damage; 
 

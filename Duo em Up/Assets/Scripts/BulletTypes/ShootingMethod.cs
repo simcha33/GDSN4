@@ -112,16 +112,16 @@ public class ShootingMethod : MonoBehaviour
         {
             RandomSpreadFire();
         }
+
+        
     }
 
 
 
     IEnumerator RepeatingFire()
     {
-        target = Random.Range(1, 3);
-        if (target == 1) player = GameObject.Find("p1");
-        else if (target == 2) player = GameObject.Find("p2");
-        else player = null;
+        ChooseTarget();
+
         for (int i = 0; i < bulletAmount; i++)
         {
             pos = this.transform.position;
@@ -137,10 +137,7 @@ public class ShootingMethod : MonoBehaviour
     
     IEnumerator RandomSpread()
     {
-        target = Random.Range(1, 3);
-        if (target == 1) player = GameObject.Find("p1");
-        else if (target == 2) player = GameObject.Find("p2");
-        else player = null;
+        ChooseTarget();
         for (int i = 0; i < bulletAmount; i++)
         {
             pos = this.transform.position;
@@ -159,10 +156,7 @@ public class ShootingMethod : MonoBehaviour
 
     IEnumerator SingleShoot()
     {
-        target = Random.Range(1, 3);
-        if (target == 1) player = GameObject.Find("p1");
-        else if (target == 2) player = GameObject.Find("p2");
-        else player = null;
+        ChooseTarget();
         yield return new WaitForSeconds(waitTime);
         for (int i = 0; i < bulletAmount; i++)
         {
@@ -178,11 +172,8 @@ public class ShootingMethod : MonoBehaviour
     
     IEnumerator SpreadFiring()
     {
-        target = Random.Range(1, 3);
-        if (target == 1) player = GameObject.Find("p1");
-        else if (target == 2) player = GameObject.Find("p2");
-        else player = null;
-        for(int i = 0; i < bulletAmount; i++)
+        ChooseTarget();
+        for (int i = 0; i < bulletAmount; i++)
         {
             pos = this.transform.position;
             for (int j = 1; j < 6; j++)
@@ -221,38 +212,56 @@ public class ShootingMethod : MonoBehaviour
         berserkCount += 1;
     }
 
-/*
-    void SpreadProjectiles()
+    private void ChooseTarget()
     {
         target = Random.Range(1, 3);
-        pos = this.transform.position;
         if (target == 1) player = GameObject.Find("p1");
         else if (target == 2) player = GameObject.Find("p2");
         else player = null;
 
-        Vector3 forward = (player.transform.position - this.transform.position).normalized * coneLength;
-        Vector3 perp = new Vector3(forward.y, forward.x, 0).normalized;
-        GameObject bullet0 = Instantiate(bulletPrefab, pos, Quaternion.identity);
-        bullet0.transform.forward = forward;
-        for (int i = 0; i < bulletAmount/2; i++)
+        if (target == 1 && player == null)
         {
-            Vector3 offset = (forward + (perp * (i) * (coneWidth / bulletAmount))).normalized;
-            Vector3 offset2 = (forward - (perp * (i) * (coneWidth / bulletAmount))).normalized;
-
-            GameObject bullet1 = Instantiate(bulletPrefab, pos, Quaternion.identity);
-            bullet1.transform.forward = offset;
-            bullet1.GetComponent<Rigidbody>().velocity = bullet1.transform.forward * bulletSpeed;
-
-            GameObject bullet2 = Instantiate(bulletPrefab, pos, Quaternion.identity);
-            bullet2.transform.forward = offset2;
-            bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * bulletSpeed;
-
+            player = GameObject.Find("p2");
         }
+        else if (target == 2 && player == null)
+        {
+            player = GameObject.Find("p1");
+        }
+    }
 
 
-    } 
-    
-*/
+    /*
+        void SpreadProjectiles()
+        {
+            target = Random.Range(1, 3);
+            pos = this.transform.position;
+            if (target == 1) player = GameObject.Find("p1");
+            else if (target == 2) player = GameObject.Find("p2");
+            else player = null;
+
+            Vector3 forward = (player.transform.position - this.transform.position).normalized * coneLength;
+            Vector3 perp = new Vector3(forward.y, forward.x, 0).normalized;
+            GameObject bullet0 = Instantiate(bulletPrefab, pos, Quaternion.identity);
+            bullet0.transform.forward = forward;
+            for (int i = 0; i < bulletAmount/2; i++)
+            {
+                Vector3 offset = (forward + (perp * (i) * (coneWidth / bulletAmount))).normalized;
+                Vector3 offset2 = (forward - (perp * (i) * (coneWidth / bulletAmount))).normalized;
+
+                GameObject bullet1 = Instantiate(bulletPrefab, pos, Quaternion.identity);
+                bullet1.transform.forward = offset;
+                bullet1.GetComponent<Rigidbody>().velocity = bullet1.transform.forward * bulletSpeed;
+
+                GameObject bullet2 = Instantiate(bulletPrefab, pos, Quaternion.identity);
+                bullet2.transform.forward = offset2;
+                bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * bulletSpeed;
+
+            }
+
+
+        } 
+
+    */
 
     void circularShot()
     {

@@ -15,7 +15,7 @@ public class playerProjectiles : MonoBehaviour {
 
 
 //public int shooter is an int that determines who shot the bullet
-//0 is nothing, 1 is player 1, 2 is player 2, 3 is enemy 1, 4 is enemy 2
+//0 is last man standing, 1 is player 1, 2 is player 2, 3 is enemy 1, 4 is enemy 2
 	public int Shooter;
 
 	void Awake(){
@@ -56,7 +56,7 @@ public class playerProjectiles : MonoBehaviour {
             Destroy(hitEffect, 1f);
             Destroy(gameObject);}
 
-		else if(other.gameObject.tag=="EnemyRed" && Shooter == 1){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
+		else if(other.gameObject.tag=="EnemyRed" && (Shooter == 1 || Shooter == 0)){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage();
             other.gameObject.GetComponent<EnemyScript>()._health -= damage;
             GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);
@@ -87,7 +87,7 @@ public class playerProjectiles : MonoBehaviour {
             Destroy(gameObject);
         }
 
-		else if(other.gameObject.tag=="EnemyBlue" && Shooter == 2){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
+		else if(other.gameObject.tag=="EnemyBlue" && (Shooter == 2 || Shooter == 0)){ //checked of de enemy is geraakt hier kunnen we de verschillende types enemies ingooien 
 			//other.gameObject.GetComponent<NormaleEnemy>().TakeDamage(); 
             other.gameObject.GetComponent<EnemyScript>()._health -= damage;
             GameObject hitEffect = Instantiate(hit, this.transform.position, Quaternion.identity);

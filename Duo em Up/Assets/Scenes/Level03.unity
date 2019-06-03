@@ -182,6 +182,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 30990824, guid: bb9427d4eb835ff46b010d9d32054349,
         type: 3}
+    - target: {fileID: 1846678155, guid: 4a05013518e03064da9a224640d77912, type: 3}
+      propertyPath: bulletLast
+      value: 
+      objectReference: {fileID: 5886158256987564908, guid: a25544b739b97b3499b1a94cfdd35818,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a05013518e03064da9a224640d77912, type: 3}
 --- !u!1 &115384347
@@ -646,7 +651,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5753072612872881955, guid: 25dc6f7fce02f74489d3e1a2f330c98a,
     type: 3}
   bulletAmount: 20
-  style: 5
+  style: 3
   waitTime: 0
   bulletSpeed: 4
   missilePrefab: {fileID: 0}
@@ -6085,14 +6090,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615c3347e637f0c41b6633796448f7f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerUpName: 
-  _appearance: {fileID: 0}
-  _movementSpeed: 0
-  _deSpawnTime: 0
-  _healthChange: 0
-  _damageChange: 0
-  _tagChange: 0
+  powerUpSort: 0
+  deSpawnTime: 0
+  effectTime: 20
+  lRenderScript: {fileID: 0}
   index: 0
+  healthFx: {fileID: 0}
 --- !u!65 &594920415
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11814,6 +11817,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1846678152, guid: 4a05013518e03064da9a224640d77912,
         type: 3}
+    - target: {fileID: 30990825, guid: bb9427d4eb835ff46b010d9d32054349, type: 3}
+      propertyPath: bulletLast
+      value: 
+      objectReference: {fileID: 5886158256987564908, guid: a25544b739b97b3499b1a94cfdd35818,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb9427d4eb835ff46b010d9d32054349, type: 3}
 --- !u!1001 &6871060242303227409
@@ -11823,6 +11831,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6871060241166824014, guid: 74d84ac5097e37a40a50c7dddb816e2f,
+        type: 3}
+      propertyPath: p1Transform
+      value: 
+      objectReference: {fileID: 30990830}
+    - target: {fileID: 6871060241166824014, guid: 74d84ac5097e37a40a50c7dddb816e2f,
+        type: 3}
+      propertyPath: p2Transform
+      value: 
+      objectReference: {fileID: 1846678158}
+    - target: {fileID: 6871060241166824014, guid: 74d84ac5097e37a40a50c7dddb816e2f,
+        type: 3}
+      propertyPath: currentDamageLevel
+      value: 
+      objectReference: {fileID: 316264273}
     - target: {fileID: 6871060241166824013, guid: 74d84ac5097e37a40a50c7dddb816e2f,
         type: 3}
       propertyPath: m_Name
@@ -11883,20 +11906,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6871060241166824014, guid: 74d84ac5097e37a40a50c7dddb816e2f,
-        type: 3}
-      propertyPath: p1Transform
-      value: 
-      objectReference: {fileID: 30990830}
-    - target: {fileID: 6871060241166824014, guid: 74d84ac5097e37a40a50c7dddb816e2f,
-        type: 3}
-      propertyPath: p2Transform
-      value: 
-      objectReference: {fileID: 1846678158}
-    - target: {fileID: 6871060241166824014, guid: 74d84ac5097e37a40a50c7dddb816e2f,
-        type: 3}
-      propertyPath: currentDamageLevel
-      value: 
-      objectReference: {fileID: 316264273}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74d84ac5097e37a40a50c7dddb816e2f, type: 3}
