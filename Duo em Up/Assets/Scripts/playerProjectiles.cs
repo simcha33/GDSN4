@@ -7,7 +7,7 @@ public class playerProjectiles : MonoBehaviour {
 	Rigidbody rb; 
 	int direction = 1; 
 	public float travelSpeed;
-    float damage;
+    public float damage;
 
     public GameObject hit;
     GameObject lRender;

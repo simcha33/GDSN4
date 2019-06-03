@@ -134,11 +134,9 @@ public class PlayerShip : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (otherPlayer == null)
-            {
                 Revive();
-            }
         }
+
         if (!otherPlayer.activeInHierarchy)
         {
             LastManStanding();
@@ -210,7 +208,6 @@ public class PlayerShip : MonoBehaviour {
     {
         if (!otherPlayer.activeInHierarchy)
         {
-            otherPlayerScript.playerHealth = 5;
             otherPlayer.SetActive(true);
             
             lineRender.SetActive(true);
