@@ -140,7 +140,7 @@ public class PlayerShip : MonoBehaviour {
 		//zelfde hier voor de speler als bij enemies eigenlijk
 
 		if(playerHealth<=0){
-			Destroy(gameObject);  
+            gameObject.SetActive(false);  
 		}
 	}
 	void Shoot(){

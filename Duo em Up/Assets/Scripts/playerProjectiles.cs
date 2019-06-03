@@ -69,6 +69,10 @@ public class playerProjectiles : MonoBehaviour {
 				//minscore 
 				Debug.Log("Wrong color");
             other.gameObject.GetComponent<EnemyScript>().ShieldOn();
+            if (other.gameObject.GetComponent<ShootingMethod>().style == ShootingMethod.ShootStyle.Balrog)
+            {
+                other.gameObject.GetComponent<ShootingMethod>().BerserkCounter();
+            }
             Destroy(gameObject);
         }
 

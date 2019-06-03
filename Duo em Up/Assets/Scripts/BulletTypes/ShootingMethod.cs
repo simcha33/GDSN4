@@ -43,12 +43,6 @@ public class ShootingMethod : MonoBehaviour
     ParticleSystem flames = null;
     private const float radius = 1f;
     
-    /*
-    [Header("Chalemeon Variables")]
-    public Material redMaterial = null;
-    public Material blueMaterial = null;
-    bool colorSwitch = false;
-    */
     BasicBullet bulletScript;
 
     [Header("Don't touch the following")]
@@ -87,6 +81,9 @@ public class ShootingMethod : MonoBehaviour
 
         if(style == ShootStyle.Chalemeon)
         {
+            Chalemeon chalemeon = GetComponent<Chalemeon>();
+            chalemeon.Activate();
+            InvokeRepeating("RandomSpreadFire", 3.0f, fireDelay);
 
         }
 
@@ -200,7 +197,7 @@ public class ShootingMethod : MonoBehaviour
             yield return new WaitForSeconds(fireRate);
         }
     }
-    
+ 
 
     void BasicFire()
     {
